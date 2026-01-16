@@ -9,6 +9,14 @@ body{
     color: #111;
 }
 
+button{
+    padding: 5px 10px;
+    margin: 5px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 ul{
     list-style-type: none
 }

@@ -97,7 +97,7 @@ const loadDashboardPromise = () =>{
             )
         };
 
-        updateStatus(commentsRes.status === "rejected" ? "partial" : "success", commentsRes.reason?.message);
+        updateStatus(commentsRes.status === "Rejected" ? "Partial" : "Success!", commentsRes.reason?.message);
     })
     .catch(err =>{
         updateStatus("Error:", err.message);
@@ -125,7 +125,7 @@ const loadDashboardAsync = async () =>{
         renderPosts(postsRes.value, usersRes.value, commentsRes.status === "fulfilled" ? commentsRes.value : null);
 
     updateStatus(
-      commentsRes.status === "rejected" ? "partial" : "success",
+      commentsRes.status === "Rejected" ? "Partial" : "Success!",
       commentsRes.reason?.message
     );
   }catch(err){
