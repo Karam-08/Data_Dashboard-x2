@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Dashboard</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <h1>Data Dashboard</h1>
+
+    <section class="control-container">
+        <button id="loadBtn">Load Dashboard</button>
+        <button id="refreshBtn">Refresh</button>
+
+        <label class="toggle">
+            <input type="checkbox" id="modeToggle">
+            <span>Async/Await Mode</span>
+        </label>
+
+        <button id="testBtn">Run Test Scenarios</button>
+    </section>
+
+    <section class="status">
+        <h2>Status/Debug Panel</h2>
+        <ul>
+            <li><strong>Mode:</strong><span id="mode">Promise</span></li>
+            <li><strong>State:</strong><span id="state">Idle</span></li>
+            <li><strong>Last Request:</strong><span id="time">-</span></li>
+            <li><strong>Success:</strong><span id="successCount">0</span></li>
+            <li><strong>Failures:</strong><span id="failCount">0</span></li>
+            <li><strong>Last Error:</strong><span id="errorMsg">-</span></li>
+        </ul>
+    </section>
+
+    <section class="data">
+        <div class="card">
+            <h2>Users</h2>
+            <ul id="usersList"></ul>
+        </div>
+
+        <div class="card">
+            <h2>Posts</h2>
+            <ul id="postsList"></ul>
+        </div>
+    </section>
+    <script src="./script.js"></script>
+</body>
+</html>
