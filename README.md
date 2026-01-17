@@ -86,6 +86,7 @@ The dashboard supports:
 - Partial failures
 
 These features mimic real-world API behavior.
+Proof of these errors can be found in the screenshots folder.
 
 ---
 
