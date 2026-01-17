@@ -33,11 +33,11 @@ const updateStatus = (state, error = "-") =>{
 
 // Error testing flags (change to true for testing)
 const errorTest = {
-  users404: false, // wrong URL for users
-  force500: false, // fake server error
-  timeout: false, // force timeout
-  badJSON: false, // return invalid JSON response
-  commentsFail: false // only comments fail
+    users404: false, // wrong URL for users
+    force500: false, // fake server error
+    timeout: false, // force timeout
+    badJSON: false, // return invalid JSON response
+    commentsFail: false // only comments fail
 };
 
 // Picks what URL to use based on the error testing flags
