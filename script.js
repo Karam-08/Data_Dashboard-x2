@@ -116,7 +116,7 @@ const loadDashboardPromise = () =>{
     modeText.textContent = "Promise";
     updateStatus("loading");
 
-    Promise.allSettled([
+    Promise.allSettled([ // this gives the three successes/failures
         fetchWithRetry(resolveURL("users")),
         fetchWithRetry(resolveURL("posts")),
         fetchWithRetry(resolveURL("comments"))
