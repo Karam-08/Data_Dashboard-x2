@@ -1,15 +1,17 @@
+// API links for data
 const URLS = {
     users: "https://jsonplaceholder.typicode.com/users",
     posts: "https://jsonplaceholder.typicode.com/posts",
     comments: "https://jsonplaceholder.typicode.com/comments"
 };
 
-const timeout = 2500
-let mode = 'promise'
+const timeout = 2500 // How long before a request times out
+let mode = 'promise' // Keeps track of the current mode
 
-let successCount = 0
-let failureCount = 0
+let successCount = 0 // number of successful requests
+let failureCount = 0 // number of failed requests
 
+// HTML elements
 const modeText = document.getElementById("mode");
 const stateText = document.getElementById("state");
 const timeText = document.getElementById("time");
@@ -20,6 +22,7 @@ const failureText = document.getElementById("failureCount");
 const usersList = document.getElementById("usersList");
 const postsList = document.getElementById("postsList");
 
+// Updates the status and debug panel
 const updateStatus = (state, error = "-") =>{
     stateText.textContent = state;
     timeText.textContent = new Date().toLocaleTimeString();
@@ -28,22 +31,25 @@ const updateStatus = (state, error = "-") =>{
     failureText.textContent = failureCount;
 }
 
+// Error testing flags (change to true for testing)
 const errorTest = {
-  users404: false,
-  force500: false,
-  timeout: false,
-  badJSON: false,
-  commentsFail: false
+  users404: false, // wrong URL for users
+  force500: false, // fake server error
+  timeout: false, // force timeout
+  badJSON: false, // return invalid JSON response
+  commentsFail: false // only comments fail
 };
 
+// Picks what URL to use based on the error testing flags
 const resolveURL = (key) =>{
     if(errorTest.force500) return "https://jsonplaceholder.typicode.com/throw500";
     if(key === "users" && errorTest.users404) return URLS.users + "s";
-    if(key === "users" && errorTest.badJSON) return URLS.users + "?badjson=true";
+    if(key === "users" && errorTest.badJSON) return "https://jsonplaceholder.typicode.com/"
     if(key === "comments" && errorTest.commentsFail) return URLS.comments + "s";
     return URLS[key];
 }
 
+// Fetches with a timeout and error handling
 const fetchWithTimeout = (url) =>{
     const effectiveTimeout = errorTest.timeout ? 1 : timeout;
 
@@ -64,6 +70,7 @@ const fetchWithTimeout = (url) =>{
     ])
 }
 
+// Retries a request if it fails
 const fetchWithRetry = (url, retries = 2, delay = 300) =>{
     return fetchWithTimeout(url)
     .catch(err =>{
@@ -73,6 +80,7 @@ const fetchWithRetry = (url, retries = 2, delay = 300) =>{
     })
 }
 
+// Renders users in the page
 const renderUsers = (users) =>{
     usersList.innerHTML = "";
     users.forEach(user =>{
@@ -82,6 +90,7 @@ const renderUsers = (users) =>{
     });
 }
 
+// Renders posts
 const renderPosts = (posts, users, comments) =>{
     postsList.innerHTML = "";
     
@@ -94,12 +103,14 @@ const renderPosts = (posts, users, comments) =>{
     });
 }
 
+// Counts how many requests succeeded and failed
 const processResults = (results) =>{
     successCount = 0;
     failureCount = 0;
     results.forEach(r => r.status === "fulfilled" ? successCount++ : failureCount++);
 }
 
+// Loads the dashboard using Promises
 const loadDashboardPromise = () =>{
     mode = 'promise'
     modeText.textContent = "Promise";
@@ -135,6 +146,7 @@ const loadDashboardPromise = () =>{
     .finally(() => console.log("Dashboard load attempt finished."));
 }
 
+// Loads the dashboard using Async/Await
 const loadDashboardAsync = async () =>{
     mode = "async";
     modeText.textContent = "Async/Await";
@@ -172,6 +184,7 @@ const loadDashboardAsync = async () =>{
     }
 }
 
+// Buttons and toggle controls
 document.getElementById("modeToggle").addEventListener("change", e =>{
     mode = e.target.checked ? "async" : "promise";
     modeText.textContent = mode === "async" ? "Async/Await" : "Promise";
@@ -187,4 +200,5 @@ document.getElementById("refreshBtn").addEventListener("click", () =>{
     mode === "async" ? loadDashboardAsync() : loadDashboardPromise();
 });
 
+// Initial load
 loadDashboardPromise();
